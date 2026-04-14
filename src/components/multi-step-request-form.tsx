@@ -1,6 +1,9 @@
 "use client";
 
 import { ChangeEvent, useEffect, useMemo, useState } from "react";
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") ?? "http://localhost:4100";
+const REQUESTS_ENDPOINT = `${API_BASE_URL}/requests`;
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { HardwareCheckBadge } from "@/components/hardware-check-badge";
@@ -200,7 +203,7 @@ export function MultiStepRequestForm() {
           submittedDate: new Date().toISOString(),
         };
 
-        const response = await fetch("http://localhost:4100/requests", {
+        const response = await fetch(REQUESTS_ENDPOINT, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
@@ -213,7 +216,7 @@ export function MultiStepRequestForm() {
         setForm((current) => ({ ...current, paymentStage: "done" }));
         setToast("Nice ✨ Request locked in.");
       } catch {
-        setToast("Could not send the request right now. Start the backend and try again.");
+        setToast("Could not send the request right now. Check the backend URL and try again.");
       } finally {
         setSubmitting(false);
       }
