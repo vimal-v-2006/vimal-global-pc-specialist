@@ -183,7 +183,7 @@ export function MultiStepRequestForm() {
           phone: form.phone,
           email: form.email,
           contactApp: form.contactApp,
-          country: form.paymentChoice === "₹50 for Indians" ? "India" : "International",
+          country: "",
           services: form.categories.length > 0 ? form.categories : ["Custom Request"],
           customRequest: form.customRequest || "Will share details on chat.",
           pcSpecs: {
